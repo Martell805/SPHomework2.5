@@ -17,20 +17,17 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee add(@RequestParam(value="name") String name,
-                        @RequestParam(value="surname", required=false) String surname){
+    public Employee add(@RequestParam("name") String name, @RequestParam("surname") String surname){
         return employeeService.addEmployee(name, surname);
     }
 
     @GetMapping("/remove")
-    public Employee remove(@RequestParam(value="name") String name,
-                           @RequestParam(value="surname") String surname){
+    public Employee remove(@RequestParam("name") String name, @RequestParam("surname") String surname){
         return employeeService.removeEmployee(name, surname);
     }
 
     @GetMapping("/find")
-    public Employee find(@RequestParam(value="name") String name,
-                         @RequestParam(value="surname") String surname){
+    public Employee find(@RequestParam("name") String name, @RequestParam("surname") String surname){
         return employeeService.findEmployee(name, surname);
     }
 

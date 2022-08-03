@@ -16,7 +16,8 @@ public class EmployeeService {
     public Employee addEmployee(String name, String surname, int salary, int departmentId){
         employees.stream()
                 .filter(e -> e.getName().equals(name) && e.getSurname().equals(surname))
-                .forEach(employee -> {throw new EmployeeAlreadyAddedException();});
+                .findAny()
+                .ifPresent(e -> {throw new EmployeeAlreadyAddedException();});
 
         Employee newEmployee = new Employee(name, surname, salary, departmentId);
         employees.add(newEmployee);

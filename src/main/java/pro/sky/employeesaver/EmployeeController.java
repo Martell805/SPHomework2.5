@@ -17,8 +17,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee add(@RequestParam("name") String name, @RequestParam("surname") String surname){
-        return employeeService.addEmployee(name, surname);
+    public Employee add(@RequestParam("name") String name, @RequestParam("surname") String surname,
+                        @RequestParam("salary") Integer salary,  @RequestParam("departmentId") Integer departmentId){
+        return employeeService.addEmployee(name, surname, salary, departmentId);
     }
 
     @GetMapping("/remove")
@@ -31,8 +32,18 @@ public class EmployeeController {
         return employeeService.findEmployee(name, surname);
     }
 
-    @GetMapping("/getAll")
-    public List<Employee> getAll(){
-        return employeeService.getAll();
+    @GetMapping("/maxSalary")
+    public Employee maxSalary(@RequestParam("departmentId") Integer departmentId){
+        return employeeService.maxSalary(departmentId);
+    }
+
+    @GetMapping("/minSalary")
+    public Employee minSalary(@RequestParam("departmentId") Integer departmentId){
+        return employeeService.minSalary(departmentId);
+    }
+
+    @GetMapping("/all")
+    public List<Employee> all(@RequestParam(value="departmentId", required=false) Integer departmentId){
+        return employeeService.all(departmentId);
     }
 }

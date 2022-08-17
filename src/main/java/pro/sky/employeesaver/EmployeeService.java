@@ -16,16 +16,10 @@ import java.util.stream.Collectors;
 public class EmployeeService {
     private final List<Employee> employees = new ArrayList<>();
 
-    private Boolean validateName(String name){
-        return !StringUtils.isEmpty(name) && StringUtils.isAlpha(name) && !StringUtils.containsAny(name, new char[]{' ', '\n', '\t'});
-    }
 
-    private Boolean validateUserInfo(String name, String surname){
-        return validateName(name) && validateName(surname);
-    }
 
     public ResponseEntity addEmployee(String name, String surname, int salary, int departmentId){
-        if(!validateUserInfo(name, surname)){
+        if(!Validator.validateUserInfo(name, surname, departmentId)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -41,7 +35,7 @@ public class EmployeeService {
     }
 
     public ResponseEntity removeEmployee(String name, String surname){
-        if(!validateUserInfo(name, surname)){
+        if(!Validator.validateName(name, surname)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -55,7 +49,7 @@ public class EmployeeService {
     }
 
     public ResponseEntity findEmployee(String name, String surname) {
-        if(!validateUserInfo(name, surname)){
+        if(!Validator.validateName(name, surname)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -68,6 +62,10 @@ public class EmployeeService {
     }
 
     public ResponseEntity maxSalary(int departmentId){
+        if(!Validator.validateDepartmentId(departmentId)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(
                 employees.stream()
                         .filter(e -> e.getDepartmentId() == departmentId)
@@ -77,6 +75,10 @@ public class EmployeeService {
     }
 
     public ResponseEntity minSalary(int departmentId){
+        if(!Validator.validateDepartmentId(departmentId)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(
                 employees.stream()
                         .filter(e -> e.getDepartmentId() == departmentId)
@@ -92,6 +94,10 @@ public class EmployeeService {
                             .sorted(Comparator.comparingInt(Employee::getDepartmentId))
                             .collect(Collectors.toList()),
                     HttpStatus.OK);
+
+        if(!Validator.validateDepartmentId(departmentId)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(
                 employees.stream()

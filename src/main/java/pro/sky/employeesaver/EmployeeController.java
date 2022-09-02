@@ -6,16 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
-    private final DepartmentService departmentService;
 
-    public EmployeeController(EmployeeService employeeService, DepartmentService departmentService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
-        this.departmentService = departmentService;
     }
 
     @GetMapping("/add")
@@ -34,18 +31,5 @@ public class EmployeeController {
         return employeeService.findEmployee(name, surname);
     }
 
-    @GetMapping("/maxSalary")
-    public ResponseEntity maxSalary(@RequestParam("departmentId") Integer departmentId){
-        return departmentService.maxSalary(departmentId);
-    }
 
-    @GetMapping("/minSalary")
-    public ResponseEntity minSalary(@RequestParam("departmentId") Integer departmentId){
-        return departmentService.minSalary(departmentId);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity all(@RequestParam(value="departmentId", required=false) Integer departmentId){
-        return departmentService.all(departmentId);
-    }
 }

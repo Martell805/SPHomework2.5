@@ -7,9 +7,7 @@ import pro.sky.employeesaver.exceptions.EmployeeAlreadyAddedException;
 import pro.sky.employeesaver.exceptions.EmployeeNotFoundException;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {

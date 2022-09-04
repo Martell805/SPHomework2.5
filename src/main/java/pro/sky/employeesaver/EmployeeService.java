@@ -13,7 +13,7 @@ import java.util.List;
 public class EmployeeService {
     private final List<Employee> employees = new ArrayList<>();
 
-    public ResponseEntity addEmployee(String name, String surname, int salary, int departmentId){
+    public ResponseEntity<Employee> addEmployee(String name, String surname, int salary, int departmentId){
         if(!Validator.validateUserInfo(name, surname, departmentId)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -29,7 +29,7 @@ public class EmployeeService {
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
 
-    public ResponseEntity removeEmployee(String name, String surname){
+    public ResponseEntity<Employee> removeEmployee(String name, String surname){
         if(!Validator.validateName(name, surname)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -43,7 +43,7 @@ public class EmployeeService {
         return new ResponseEntity<>(oldEmployee, HttpStatus.OK);
     }
 
-    public ResponseEntity findEmployee(String name, String surname) {
+    public ResponseEntity<Employee> findEmployee(String name, String surname) {
         if(!Validator.validateName(name, surname)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

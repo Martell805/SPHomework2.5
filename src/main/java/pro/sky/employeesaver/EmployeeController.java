@@ -16,20 +16,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public ResponseEntity add(@RequestParam("name") String name, @RequestParam("surname") String surname,
+    public ResponseEntity<Employee> add(@RequestParam("name") String name, @RequestParam("surname") String surname,
                               @RequestParam("salary") Integer salary, @RequestParam("departmentId") Integer departmentId){
         return employeeService.addEmployee(name, surname, salary, departmentId);
     }
 
     @GetMapping("/remove")
-    public ResponseEntity remove(@RequestParam("name") String name, @RequestParam("surname") String surname){
+    public ResponseEntity<Employee> remove(@RequestParam("name") String name, @RequestParam("surname") String surname){
         return employeeService.removeEmployee(name, surname);
     }
 
     @GetMapping("/find")
-    public ResponseEntity find(@RequestParam("name") String name, @RequestParam("surname") String surname){
+    public ResponseEntity<Employee> find(@RequestParam("name") String name, @RequestParam("surname") String surname){
         return employeeService.findEmployee(name, surname);
     }
-
-
 }

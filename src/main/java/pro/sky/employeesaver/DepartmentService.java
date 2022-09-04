@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pro.sky.employeesaver.exceptions.EmployeeNotFoundException;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,7 +17,7 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
-    public ResponseEntity maxSalary(int departmentId){
+    public ResponseEntity<Employee> maxSalary(int departmentId){
         if(!Validator.validateDepartmentId(departmentId)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -29,7 +30,7 @@ public class DepartmentService {
                 HttpStatus.OK);
     }
 
-    public ResponseEntity minSalary(int departmentId){
+    public ResponseEntity<Employee> minSalary(int departmentId){
         if(!Validator.validateDepartmentId(departmentId)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -42,7 +43,7 @@ public class DepartmentService {
                 HttpStatus.OK);
     }
 
-    public ResponseEntity all(Integer departmentId){
+    public ResponseEntity<List<Employee>> all(Integer departmentId){
         if(departmentId == null)
             return new ResponseEntity<>(
                     this.employeeService.getAll().stream()

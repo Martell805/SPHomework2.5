@@ -13,12 +13,12 @@ import java.util.List;
 
 public class EmployeeServiceTest {
     EmployeeService employeeService;
-    Employee default_employee;
+    Employee defaultEmployee;
 
     @BeforeEach
     public void beforeEach(){
         this.employeeService = new EmployeeService();
-        this.default_employee = new Employee("X", "X", 9999, 1);
+        this.defaultEmployee = new Employee("X", "X", 9999, 1);
         this.employeeService.addEmployee("X", "X", 9999, 1);
     }
 
@@ -36,7 +36,7 @@ public class EmployeeServiceTest {
         ResponseEntity<Employee> expected = new ResponseEntity<Employee>(employee, HttpStatus.OK);
 
         Assertions.assertEquals(result, expected);
-        Assertions.assertEquals(employeeService.getAll(), List.of(default_employee, employee));
+        Assertions.assertEquals(employeeService.getAll(), List.of(defaultEmployee, employee));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class EmployeeServiceTest {
 
         Assertions.assertThrows(EmployeeAlreadyAddedException.class, () -> this.employeeService.addEmployee(name, surname, salary, departmentId));
 
-        Assertions.assertEquals(employeeService.getAll(), List.of(default_employee));
+        Assertions.assertEquals(employeeService.getAll(), List.of(defaultEmployee));
     }
 
     @Test
@@ -62,7 +62,7 @@ public class EmployeeServiceTest {
         ResponseEntity<Employee> expected = new ResponseEntity<Employee>(HttpStatus.BAD_REQUEST);
 
         Assertions.assertEquals(result, expected);
-        Assertions.assertEquals(employeeService.getAll(), List.of(default_employee));
+        Assertions.assertEquals(employeeService.getAll(), List.of(defaultEmployee));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class EmployeeServiceTest {
         String surname = "X";
 
         ResponseEntity<Employee> result = this.employeeService.removeEmployee(name, surname);
-        ResponseEntity<Employee> expected = new ResponseEntity<Employee>(default_employee, HttpStatus.OK);
+        ResponseEntity<Employee> expected = new ResponseEntity<Employee>(defaultEmployee, HttpStatus.OK);
 
         Assertions.assertEquals(result, expected);
         Assertions.assertEquals(employeeService.getAll(), List.of());
@@ -86,7 +86,7 @@ public class EmployeeServiceTest {
         ResponseEntity<Employee> expected = new ResponseEntity<Employee>(HttpStatus.BAD_REQUEST);
 
         Assertions.assertEquals(result, expected);
-        Assertions.assertEquals(employeeService.getAll(), List.of(default_employee));
+        Assertions.assertEquals(employeeService.getAll(), List.of(defaultEmployee));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class EmployeeServiceTest {
 
         Assertions.assertThrows(EmployeeNotFoundException.class, () -> this.employeeService.removeEmployee(name, surname));
 
-        Assertions.assertEquals(employeeService.getAll(), List.of(default_employee));
+        Assertions.assertEquals(employeeService.getAll(), List.of(defaultEmployee));
     }
 
     @Test
@@ -105,7 +105,7 @@ public class EmployeeServiceTest {
         String surname = "X";
 
         ResponseEntity<Employee> result = this.employeeService.findEmployee(name, surname);
-        ResponseEntity<Employee> expected = new ResponseEntity<Employee>(default_employee, HttpStatus.OK);
+        ResponseEntity<Employee> expected = new ResponseEntity<Employee>(defaultEmployee, HttpStatus.OK);
 
         Assertions.assertEquals(result, expected);
     }
@@ -133,6 +133,6 @@ public class EmployeeServiceTest {
     public void getAllTest(){
         this.employeeService.addEmployee("A", "A", 1000, 1);
 
-        Assertions.assertEquals(this.employeeService.getAll(), List.of(default_employee, new Employee("A", "A", 1000, 1)));
+        Assertions.assertEquals(this.employeeService.getAll(), List.of(defaultEmployee, new Employee("A", "A", 1000, 1)));
     }
 }
